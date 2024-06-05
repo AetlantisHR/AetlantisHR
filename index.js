@@ -1,5 +1,4 @@
 const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
-const config = require("./config/config");
 
 const bot = new Highrise({
   Events: [
