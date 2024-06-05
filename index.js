@@ -32,4 +32,4 @@ bot.on("error", (message) => {
 console.log(message);
 });
 
-bot.login(config.token, config.room);
+bot.login(process.env.token, process.env.room);
