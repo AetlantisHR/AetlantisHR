@@ -9,6 +9,7 @@ const bot = new Highrise({
 bot.on("ready", (session) => {
   console.log("The bot is online!");
 });
+
 bot.on("chatCreate", (user, message) => {
   if (bot.info.user.id === user.id) return;
   console.log(`${user.username} said: ${message}`);
@@ -16,9 +17,13 @@ bot.on("chatCreate", (user, message) => {
     return bot.message.send("hi");
   } else if (message === "hello") {
     return bot.whisper.send(user.id, "Hello, this is a whisper.");
+  } else if (message === "Bow") {
+    return bot.player.emote(user.id, Emotes.dance_singleladies.id);
   } else if (message === "emote") {
     return bot.player.emote(user.id, Emotes.dance_singleladies.id);
-  }
+  } else if (message === "emote") {
+    return bot.player.emote(user.id, Emotes.dance_singleladies.id);
+}
 });
 
 bot.on("playerEmote", (sender, receiver, emote) => {
