@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^18.0.6",
-    "highrise.sdk": "^1.1.7"
+    "fs": "^0.0.1-security",
+    "highrise.sdk": "^1.1.7",
+    "highrise.sdk.dev": "^2.4.0"
   }
 }
