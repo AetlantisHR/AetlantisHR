@@ -1,9 +1,13 @@
-const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
+const { Highrise, Events } = require("highrise.sdk.dev");
 const port = process.env.PORT || 8080;
 
 const bot = new Highrise({
   events: [
-    Events.Messages,
+    "Messages",
+    "ChatCreate",
+    "PlayerEmote",
+    "Emote",
+    "Error"
   ]
 });
 
@@ -94,7 +98,7 @@ function handleMessage(message, user) {
   }
 }
 
-bot.on("chatCreate", (user, message) => {
+bot.on("ChatCreate", (user, message) => {
   if (bot.info.user.id === user.id) return;
   console.log(`${user.username} said: ${message}`);
 
@@ -110,16 +114,16 @@ bot.on("chatCreate", (user, message) => {
   }
 });
 
-bot.on("playerEmote", (sender, receiver, emote) => {
+bot.on("PlayerEmote", (sender, receiver, emote) => {
   console.log(`${sender.username} performed an emote on ${receiver.username} "${emote}"`);
 });
 
-bot.on("emote", (event) => {
+bot.on("Emote", (event) => {
   const { user: { id: userId }, emote: emoteName } = event;
   console.log(`El usuario con ID ${userId} está usando el emote: ${emoteName}`);
 });
 
-bot.on("error", (message) => {
+bot.on("Error", (message) => {
   console.log(message);
 });
 
