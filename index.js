@@ -3,15 +3,16 @@ const port = process.env.PORT || 8080;
 
 const bot = new Highrise({
   events: [
-    "Messages",
-    "ChatCreate",
-    "PlayerEmote",
-    "Emote",
-    "Error"
+    Events.Messages,
+    Events.ChatCreate,
+    Events.PlayerEmote,
+    Events.Emote,
+    Events.Error,
+    Events.Ready
   ]
 });
 
-bot.on("ready", (session) => {
+bot.on(Events.Ready, (session) => {
   console.log("The bot is online!");
 });
 
@@ -82,12 +83,12 @@ const COMMAND_COOLDOWN = 1000; // Tiempo de espera en milisegundos entre comando
 
 function handleMessage(message, user) {
   const now = Date.now();
-  
+
   // Evitar comandos repetidos por el mismo usuario en un corto período de tiempo
   if (lastCommandTime[user.id] && now - lastCommandTime[user.id] < COMMAND_COOLDOWN) {
     return;
   }
-  
+
   lastCommandTime[user.id] = now;
 
   const messageLower = message.toLowerCase();
@@ -98,7 +99,7 @@ function handleMessage(message, user) {
   }
 }
 
-bot.on("ChatCreate", (user, message) => {
+bot.on(Events.ChatCreate, (user, message) => {
   if (bot.info.user.id === user.id) return;
   console.log(`${user.username} said: ${message}`);
 
@@ -114,16 +115,16 @@ bot.on("ChatCreate", (user, message) => {
   }
 });
 
-bot.on("PlayerEmote", (sender, receiver, emote) => {
+bot.on(Events.PlayerEmote, (sender, receiver, emote) => {
   console.log(`${sender.username} performed an emote on ${receiver.username} "${emote}"`);
 });
 
-bot.on("Emote", (event) => {
+bot.on(Events.Emote, (event) => {
   const { user: { id: userId }, emote: emoteName } = event;
   console.log(`El usuario con ID ${userId} está usando el emote: ${emoteName}`);
 });
 
-bot.on("Error", (message) => {
+bot.on(Events.Error, (message) => {
   console.log(message);
 });
 
