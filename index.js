@@ -8,7 +8,7 @@ const bot = new Highrise({
 });
 
 const emoteMappings = {
-  "Lust": Emotes.lust,
+  "Lust": Emotes.Lust,
   "Bow": Emotes.bow
 };
 
