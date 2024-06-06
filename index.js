@@ -1,4 +1,5 @@
 const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
+const port = process.env.PORT || 4000;
 
 const bot = new Highrise({
   Events: [
