@@ -8,8 +8,8 @@ const bot = new Highrise({
 });
 
 const emoteMappings = {
-  "Tiktok10": Emotes.dance_singleladies,
-  "Dance": Emotes.hot
+  "Lust": Emotes.lust,
+  "Bow": Emotes.bow
 };
 
 bot.on("ready", (session) => {
