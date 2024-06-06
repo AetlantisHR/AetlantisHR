@@ -1,7 +1,4 @@
 const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
-const fs = require("fs");
-
-const emotes = JSON.parse(fs.readFileSync('config/emotes.json'));
 
 const bot = new Highrise({
   Events: [
@@ -31,8 +28,15 @@ bot.on("playerEmote", (sender, receiver, emote) => {
   console.log(`${sender.username} performed an emote on ${receiver.username} "${emote}"`);
 });
 
+bot.on("emote", (event) => {
+  const userId = event.user.id;
+  const emoteName = event.emote;
+  
+  console.log(`El usuario con ID ${userId} está usando el emote: ${emoteName}`);
+});
+
 bot.on("error", (message) => {
-console.log(message);
+  console.log(message);
 });
 
 bot.login(process.env.token, process.env.room);
