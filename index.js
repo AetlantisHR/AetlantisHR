@@ -18,11 +18,11 @@ bot.on("chatCreate", (user, message) => {
   } else if (message === "hello") {
     return bot.whisper.send(user.id, "Hello, this is a whisper.");
   } else if (message === "Bow") {
-    return bot.player.emote(user.id, Emotes.dance_singleladies.id);
-  } else if (message === "emote") {
-    return bot.player.emote(user.id, Emotes.dance_singleladies.id);
-  } else if (message === "emote") {
-    return bot.player.emote(user.id, Emotes.dance_singleladies.id);
+    return bot.player.emote(user.id, Emotes.bow.id);
+  } else if (message === "kiss") {
+    return bot.player.emote(user.id, Emotes.kiss.id);
+  } else if (message === "cutey") {
+    return bot.player.emote(user.id, Emotes.cutey.id);
 }
 });
 
