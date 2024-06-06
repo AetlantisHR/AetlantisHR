@@ -21,7 +21,7 @@ bot.on("chatCreate", (user, message) => {
   } else if (message === "hello") {
     return bot.whisper.send(user.id, "Hello, this is a whisper.");
   } else if (message === "emote") {
-    return bot.player.emote(user.id, Emotes.dance_singleladies.id);
+    return bot.player.emote(user.id, Emotes.dance_singleladies);
   }
 });
 
