@@ -1,6 +1,6 @@
 const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
 const fs = require("fs");
-const emotes = JSON.parse(fs.readFileSync('config/emotes.json'));
+const emotes = JSON.parse(fs.readFileSync('./config/emotes.json'));
 const port = process.env.PORT || 4000;
 
 const bot = new Highrise({
