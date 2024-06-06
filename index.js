@@ -1,5 +1,8 @@
 const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
 
+
+const emotes = JSON.parse(fs.readFileSync('config/emotes.json'));
+
 const bot = new Highrise({
   Events: [
     Events.Messages,
