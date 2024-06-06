@@ -1,41 +1,49 @@
-const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
-const port = process.env.PORT || 4000;
+// This is a simple example of how to use the Highrise SDK to create a bot.
+const { Highrise, Events } = require("highrise.sdk");
+
+// Create a new instance of the Highrise class.
 const bot = new Highrise({
   Events: [
     Events.Messages,
-    Events.Emotes
-  ]
-});
-bot.on("ready", (session) => {
-  console.log("The bot is online!");
+    Events.Joins,
+    Events.Leaves,
+    Events.DirectMessages
+  ],
+  AutoFetchMessages: true, // Fetches messages on direct message events.
+  Cache: true // Caches players in the room.
 });
 
+// Listen for the ready event.
+bot.on('ready', (session) => {
+  console.log(`Bot is now online in ${session.room_info.room_name}.`.cyan);
+});
+
+// Listen for chatCreate events.
 bot.on("chatCreate", (user, message) => {
-  if (bot.info.user.id === user.id) return;
-  console.log(`${user.username} said: ${message}`);
-  if (message === "hi") {
-    return bot.message.send("hi");
-  } else if (message === "hello") {
-    return bot.whisper.send(user.id, "Hello, this is a whisper.");
-  } else if (message === "Bow") {
-    return bot.player.emote(user.id, Emotes.bow.id);
-  } else if (message === "kiss") {
-    return bot.player.emote(user.id, Emotes.kiss.id);
-  } else if (message === "cutey") {
-    return bot.player.emote(user.id, Emotes.cutey.id);
-}
+  console.log(`[CHAT]: ${user.username}:${user.id} - ${message}`);
 });
 
-bot.on("playerEmote", (sender, receiver, emote) => {
-  console.log(`${sender.username} performed an emote on ${receiver.username} "${emote}"`);
+// Listen for directMessage events.
+bot.on("messageCreate", (user_id, data, message) => {
+  console.log(`[DIRECT MESSAGE]: ${user_id}:${data.id} - ${message}`);
 });
-bot.on("emote", (event) => {
-  const userId = event.user.id;
-  const emoteName = event.emote;
-  
-  console.log(`El usuario con ID ${userId} está usando el emote: ${emoteName}`);
+
+// Listen for playerJoin events.
+bot.on('playerJoin', (user) => {
+  console.log(`[PLAYER JOINED]: ${user.username}:${user.id}`);
 });
-bot.on("error", (message) => {
-  console.log(message);
+
+// Listen for playerLeave events.
+bot.on('playerLeave', (user) => {
+  console.log(`[PLAYER LEFT]: ${user.username}:${user.id}`);
 });
+
+// Listen for unhandledRejection events.
+// This is useful for catching errors that are not handled.
+process.on('unhandledRejection', async (err, promise) => {
+  console.error(`[ANTI-CRASH] Unhandled Rejection: ${err}`.red);
+  console.error(promise);
+});
+
+// Login to the room.
 bot.login(process.env.token, process.env.room);
