@@ -1,5 +1,5 @@
 const { Highrise, Events, Emotes } = require("highrise.sdk.dev");
-
+const fs = require("fs);
 
 const emotes = JSON.parse(fs.readFileSync('config/emotes.json'));
 
